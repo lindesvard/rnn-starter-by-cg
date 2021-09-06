@@ -2,7 +2,7 @@ import React from 'react'
 import { ScrollView, Image } from 'react-native'
 import { Button } from '@ui/Button'
 import { NavigationFunctionComponent } from 'react-native-navigation'
-import { Box } from '@ui/Box'
+import { Box, Column, Row } from '@ui/Box'
 import { Text } from '@ui/Text'
 import { stores } from '@stores'
 import { useServices } from '@services'
@@ -29,11 +29,11 @@ export const Home: NavigationFunctionComponent = () => {
   return (
     <Box flex>
       <ScrollView contentInsetAdjustmentBehavior="always">
-        <Box padding-l>
+        <Column padding-l>
           <Text mb={20}>
             {t('selectedLanguage')} <Text bold>{t('language')}</Text>
           </Text>
-          <Box row mb={20}>
+          <Row mb={20}>
             <Button
               small
               onPress={() => i18n.changeLocale(nextLanguage)}
@@ -41,8 +41,8 @@ export const Home: NavigationFunctionComponent = () => {
               iconLeft="home">
               {t('switchLanguage', { language: nextLanguage })}
             </Button>
-          </Box>
-          <Box row>
+          </Row>
+          <Row>
             {['light', 'dark'].map((mode) => (
               <Button
                 iconRight="highlighter"
@@ -54,18 +54,16 @@ export const Home: NavigationFunctionComponent = () => {
                 {mode}
               </Button>
             ))}
-          </Box>
+          </Row>
           <Box br={15} bg="primary" padding-l mt={30} shadow>
-            <Box>
-              <Text color="white" bold>
-                Balance
-              </Text>
-              <Text color="white" mt={0} text={35} bold>
-                $430,230
-              </Text>
-            </Box>
+            <Text color="white" bold>
+              Balance
+            </Text>
+            <Text color="white" mt={0} text={35} bold>
+              $430,230
+            </Text>
 
-            <Box row style={{ alignItems: 'flex-end' }} mt={20}>
+            <Row alignItems="flex-end" mt={20}>
               {[10, 3, 2, 9, 13, 4, 3, 1, 2, 7, 3, 12, 3].map((earning, index) => (
                 <Box key={index} mr={5} alignItems="center">
                   <Box
@@ -81,7 +79,7 @@ export const Home: NavigationFunctionComponent = () => {
                   </Text>
                 </Box>
               ))}
-            </Box>
+            </Row>
           </Box>
           {['My portofolio', 'Trending'].map((title) => (
             <Box mt={30} key={title}>
@@ -100,24 +98,24 @@ export const Home: NavigationFunctionComponent = () => {
                         style={{ width: 40, height: 40, borderRadius: 20 }}
                       />
                       <Box ml={10}>
-                        <Text textXS medium color="text30">
+                        <Text textXS medium color="text30" mb={4}>
                           {artist}
                         </Text>
-                        <Text>{song}</Text>
+                        <Text textS>{song}</Text>
                       </Box>
                     </Box>
-                    <Box row justifyContent="space-between" mt={5} alignItems="flex-end">
-                      <Text>$139.23</Text>
-                      <Box row>
-                        <Text color="success">+23%</Text>
-                      </Box>
-                    </Box>
+                    <Row justifyContent="space-between" alignItems="flex-end" mt={5}>
+                      <Text textS>$139.23</Text>
+                      <Text textS bold color="success">
+                        +23%
+                      </Text>
+                    </Row>
                   </Box>
                 ))}
               </ScrollView>
             </Box>
           ))}
-        </Box>
+        </Column>
       </ScrollView>
     </Box>
   )

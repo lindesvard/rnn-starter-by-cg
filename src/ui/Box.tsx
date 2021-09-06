@@ -46,3 +46,6 @@ export function Box({
     </View>
   )
 }
+
+export const Column = (props: Omit<BoxProps, 'row'>): React.ReactElement => <Box {...props} />
+export const Row = (props: Omit<BoxProps, 'row'>): React.ReactElement => <Box {...props} row />
