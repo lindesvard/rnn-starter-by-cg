@@ -13,7 +13,7 @@ import { withServices } from '@services'
 import { withStores } from '@stores'
 
 import { BottomTabs, Component, Root, Stack } from './layout'
-import { getTheme, withThemeModes } from '@ui/designSystem'
+import { getTheme, withThemeModes } from '@ui/theme'
 import { defaultOptions, getUniqueId, stripUniqueId } from './options'
 import { Hoc, Props } from './types'
 

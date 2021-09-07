@@ -1,5 +1,5 @@
 import { Options } from 'react-native-navigation'
-import { getColor } from '@ui/designSystem'
+import { getColor } from '@ui/theme'
 import { Screen, screens } from '@screens'
 import { Props } from './types'
 

@@ -1,11 +1,12 @@
 import React from 'react'
-import { ScrollView, Image } from 'react-native'
+import { ScrollView, Image, StyleSheet } from 'react-native'
 import { Button } from '@ui/Button'
 import { NavigationFunctionComponent } from 'react-native-navigation'
 import { Box, Column, Row } from '@ui/Box'
 import { Text } from '@ui/Text'
 import { stores } from '@stores'
 import { useServices } from '@services'
+import { useStyles } from '@ui/theme'
 
 const ARTIST = 'https://i.pravatar.cc/300'
 const PORTOFOLIO = [
@@ -66,14 +67,7 @@ export const Home: NavigationFunctionComponent = () => {
             <Row alignItems="flex-end" mt={20}>
               {[10, 3, 2, 9, 13, 4, 3, 1, 2, 7, 3, 12, 3].map((earning, index) => (
                 <Box key={index} mr={5} alignItems="center">
-                  <Box
-                    style={{
-                      width: 8,
-                      height: earning * 10,
-                    }}
-                    bg="white"
-                    br={15}
-                  />
+                  <Box width={8} height={earning * 10} bg="white" br={15} />
                   <Text color="white" mt={10}>
                     ${earning}
                   </Text>
@@ -92,7 +86,7 @@ export const Home: NavigationFunctionComponent = () => {
                 contentContainerStyle={{ paddingHorizontal: 20 }}>
                 {PORTOFOLIO.map(({ artist, song }) => (
                   <Box bg="screenBg10" padding-m br={15} key={song} mr={10}>
-                    <Box alignItems="center" row>
+                    <Row alignItems="center">
                       <Image
                         source={{ uri: ARTIST }}
                         style={{ width: 40, height: 40, borderRadius: 20 }}
@@ -103,7 +97,7 @@ export const Home: NavigationFunctionComponent = () => {
                         </Text>
                         <Text textS>{song}</Text>
                       </Box>
-                    </Box>
+                    </Row>
                     <Row justifyContent="space-between" alignItems="flex-end" mt={5}>
                       <Text textS>$139.23</Text>
                       <Text textS bold color="success">

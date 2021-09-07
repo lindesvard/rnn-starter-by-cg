@@ -1,7 +1,7 @@
 import React from 'react'
 import { ViewProps } from 'react-native'
 import { View } from 'react-native'
-import { useTheme } from './designSystem'
+import { useTheme } from './theme'
 import { getFlex, getMargin, getPadding, getShadow } from './style'
 import type { Flex, Margin, Padding } from './types'
 

@@ -4,13 +4,13 @@ import { NavigationFunctionComponent } from 'react-native-navigation'
 import { Box } from '@ui/Box'
 import { Text } from '@ui/Text'
 
-export const Profile: NavigationFunctionComponent = ({ componentId }) => {
+export const Sample: NavigationFunctionComponent = ({ componentId }) => {
   return (
     <Box flex>
       <ScrollView contentInsetAdjustmentBehavior="always" contentContainerStyle={{ flexGrow: 1 }}>
         <Box padding-l justifyContent="center" alignItems="center" flex>
           <Text textXL bold>
-            Profile View
+            Sample View
           </Text>
         </Box>
       </ScrollView>

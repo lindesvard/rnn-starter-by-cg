@@ -5,7 +5,7 @@ import { navigation } from '@services'
 import { TouchableHighlight } from 'react-native'
 import { Screen, screens } from '@screens'
 import { Box } from '@ui/Box'
-import { darken, lighten, useMode, useTheme } from '@ui/designSystem'
+import { darken, lighten, useMode, useTheme } from '@ui/theme'
 import { useNavigationComponentWillAppear } from '@services/navigation/hooks'
 
 export function TabBar({ componentId }: NavigationComponentProps): React.ReactElement {

@@ -2,7 +2,7 @@ import React from 'react'
 import { TextStyle } from 'react-native'
 import { Text as RNText } from 'react-native'
 import { TextProps as RNTextProps } from 'react-native'
-import { useTheme } from './designSystem'
+import { useTheme } from './theme'
 import { getMargin, getPadding } from './style'
 import type { Margin, Padding, FontSize } from './types'
 
