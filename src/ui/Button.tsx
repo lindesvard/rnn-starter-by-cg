@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableHighlightProps } from 'react-native'
 import { TouchableHighlight } from 'react-native'
-import { darken, useTheme } from './theme'
+import { darken, isColorDark, useTheme } from './theme'
 import { getFlex, getMargin, getPadding, getShadow } from './style'
 import { Text } from './Text'
 import type { Flex, Icons, Margin, Padding } from './types'
@@ -14,7 +14,7 @@ type ButtonProps = TouchableHighlightProps & {
   row?: boolean
   shadow?: boolean
   br?: number
-  width?: number
+  width?: number | string
   small?: boolean
   iconLeft?: Icons
   iconRight?: Icons
@@ -44,7 +44,7 @@ export function Button({
       underlayColor={darken(theme[bg])}
       style={{
         height,
-        minWidth: width,
+        width,
         backgroundColor: theme[bg],
         borderRadius: br ?? (height ? height / 2 : 0),
         ...(shadow ? getShadow() : {}),
@@ -58,7 +58,7 @@ export function Button({
         {iconLeft && <Icon name={iconLeft} {...iconProps} />}
         <Text
           medium
-          color="white"
+          color={isColorDark(theme[bg]) ? 'white' : 'black'}
           textS={small}
           ml={iconLeft ? (small ? 5 : 10) : 0}
           mr={iconRight ? (small ? 5 : 10) : 0}>
@@ -74,5 +74,4 @@ Button.defaultProps = {
   bg: 'primary',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 70,
 }

@@ -1,12 +1,12 @@
-import type { Padding, FlexStyle, Margin, Flex } from './types'
+import type { Padding, FlexStyle, Margin, Flex, SafeInset } from './types'
 
-type StylePadding = {
+export type StylePadding = {
   paddingTop: number
   paddingRight: number
   paddingBottom: number
   paddingLeft: number
 }
-type StyleMargin = {
+export type StyleMargin = {
   marginTop: number
   marginRight: number
   marginBottom: number
@@ -64,11 +64,12 @@ export function getPadding(
   if (props['padding-l']) {
     return { padding: 20 }
   }
+
   const style = {
-    paddingLeft: props.pl ?? props.p ?? defaultValue?.paddingLeft ?? 0,
-    paddingRight: props.pr ?? props.p ?? defaultValue?.paddingRight ?? 0,
-    paddingTop: props.pt ?? props.p ?? defaultValue?.paddingTop ?? 0,
-    paddingBottom: props.pb ?? props.p ?? defaultValue?.paddingBottom ?? 0,
+    paddingLeft: props.pl ?? props.px ?? props.p ?? defaultValue?.paddingLeft ?? 0,
+    paddingRight: props.pr ?? props.px ?? props.p ?? defaultValue?.paddingRight ?? 0,
+    paddingTop: props.pt ?? props.py ?? props.p ?? defaultValue?.paddingTop ?? 0,
+    paddingBottom: props.pb ?? props.py ?? props.p ?? defaultValue?.paddingBottom ?? 0,
   }
   return style
 }
@@ -87,10 +88,24 @@ export function getMargin(
     return { margin: 20 }
   }
   const style = {
-    marginLeft: props.ml ?? props.m ?? defaultValue?.marginLeft ?? 0,
-    marginRight: props.mr ?? props.m ?? defaultValue?.marginRight ?? 0,
-    marginTop: props.mt ?? props.m ?? defaultValue?.marginTop ?? 0,
-    marginBottom: props.mb ?? props.m ?? defaultValue?.marginBottom ?? 0,
+    marginLeft: props.ml ?? props.mx ?? props.m ?? defaultValue?.marginLeft ?? 0,
+    marginRight: props.mr ?? props.mx ?? props.m ?? defaultValue?.marginRight ?? 0,
+    marginTop: props.mt ?? props.my ?? props.m ?? defaultValue?.marginTop ?? 0,
+    marginBottom: props.mb ?? props.my ?? props.m ?? defaultValue?.marginBottom ?? 0,
   }
   return style
+}
+
+export function getSafeInset({
+  safeTop,
+  safeBottom,
+  pt = 0,
+  pb = 0,
+}: SafeInset & Pick<Padding, 'pt' | 'pb'>): Partial<
+  Pick<StylePadding, 'paddingTop' | 'paddingBottom'>
+> {
+  return {
+    ...(safeTop ? { paddingTop: 30 + pt } : {}),
+    ...(safeBottom ? { paddingBottom: 30 + pb } : {}),
+  }
 }

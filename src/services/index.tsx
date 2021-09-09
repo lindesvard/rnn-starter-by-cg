@@ -8,7 +8,7 @@ import { Storage } from '@services/storage'
 
 export const storage = new Storage()
 export const navigation = new Navigation()
-export const i18n = new I18n({ navigation, storage })
+export const i18n = new I18n()
 export const api = new Api()
 
 export const services = {

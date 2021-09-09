@@ -4,12 +4,14 @@ import { Profile } from '@screens/Profile'
 import { Explore } from '@screens/Explore'
 import { withTabBar } from '@ui/TabBar/withTabBar'
 import { convertToLayoutComponent, convertToScreens } from '@services/navigation/converters'
+import { SignIn } from './SignIn'
+import { SignUp } from './SignUp'
 
-export type Screen = 'Home' | 'Explore' | 'Profile'
+export type Screen = 'Home' | 'Explore' | 'Profile' | 'SignIn' | 'SignUp'
 
 export const screens: ScreenOptions = {
   Home: {
-    title: 'Home',
+    title: '[tabs.home]',
     component: Home,
     hocs: [withTabBar],
     bottomTab: {
@@ -18,7 +20,7 @@ export const screens: ScreenOptions = {
     },
   },
   Explore: {
-    title: 'Explore',
+    title: '[tabs.explore]',
     component: Explore,
     hocs: [withTabBar],
     bottomTab: {
@@ -26,12 +28,20 @@ export const screens: ScreenOptions = {
     },
   },
   Profile: {
-    title: 'Profile',
+    title: '[tabs.profile]',
     component: Profile,
     hocs: [withTabBar],
     bottomTab: {
       icon: 'user',
     },
+  },
+  SignIn: {
+    component: SignIn,
+    hocs: [],
+  },
+  SignUp: {
+    component: SignUp,
+    hocs: [],
   },
 }
 

@@ -21,7 +21,7 @@ export type Hoc = (
 
 export type ScreenOptions = {
   [key in Screen]: {
-    title: string
+    title?: string
     component: NavigationFunctionComponent
     hocs?: Array<Hoc>
     identifiers?: Array<string>

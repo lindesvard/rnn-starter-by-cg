@@ -1,36 +1,32 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import { NavigationFunctionComponent } from 'react-native-navigation'
-import { Box, Row } from '@ui/Box'
+import { Box } from '@ui/Box'
 import { Text } from '@ui/Text'
-import { useStyles } from '@ui/theme'
+import { useServices } from '@services'
+import { useStores } from '@stores'
+import { Button } from '@ui/Button'
 
-export const Profile: NavigationFunctionComponent = ({ componentId }) => {
-  // Get colors as function
-  const styles1 = useStyles((theme) => ({
-    box: {
-      backgroundColor: theme.primary,
-    },
-  }))
-  // Get colors as string
-  const styles2 = useStyles({
-    box: {
-      backgroundColor: 'primary',
-    },
-  })
+export const Profile: NavigationFunctionComponent = () => {
+  const { navigation, t } = useServices()
+  const { user } = useStores()
 
   return (
     <Box flex>
       <ScrollView contentInsetAdjustmentBehavior="always" contentContainerStyle={{ flexGrow: 1 }}>
         <Box padding-l justifyContent="center" alignItems="center" flex>
           <Text textXL bold>
-            Profile View
+            {t('hi')} {user.name}
           </Text>
-
-          <Row>
-            <Box br={10} width={70} height={70} style={styles1.box} m={5} />
-            <Box br={10} width={70} height={70} style={styles2.box} m={5} />
-          </Row>
+          <Button
+            mt={10}
+            bg="primary"
+            onPress={() => {
+              user.clear()
+              navigation.start({ authorized: false, animate: true })
+            }}>
+            {t('auth.logout')}
+          </Button>
         </Box>
       </ScrollView>
     </Box>

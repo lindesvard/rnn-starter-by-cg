@@ -1,6 +1,11 @@
 import type { FlexStyle } from 'react-native'
 export type { FlexStyle } from 'react-native'
 
+export type SafeInset = {
+  safeTop?: boolean
+  safeBottom?: boolean
+}
+
 export type Padding = {
   'padding-s'?: boolean
   'padding-m'?: boolean
@@ -10,6 +15,8 @@ export type Padding = {
   pr?: number
   pb?: number
   pl?: number
+  py?: number
+  px?: number
 }
 
 export type Margin = {
@@ -21,6 +28,8 @@ export type Margin = {
   mr?: number
   mb?: number
   ml?: number
+  mx?: number
+  my?: number
 }
 
 export type Flex = Partial<Omit<FlexStyle, 'flex'> & { flex: number | boolean; row: boolean }>

@@ -1,27 +1,35 @@
 import React from 'react'
-import { ScrollView, Image, StyleSheet } from 'react-native'
+import { ScrollView, Image } from 'react-native'
 import { Button } from '@ui/Button'
 import { NavigationFunctionComponent } from 'react-native-navigation'
 import { Box, Column, Row } from '@ui/Box'
 import { Text } from '@ui/Text'
 import { stores } from '@stores'
 import { useServices } from '@services'
-import { useStyles } from '@ui/theme'
+import { Icons } from '@ui/types'
 
-const ARTIST = 'https://i.pravatar.cc/300'
-const PORTOFOLIO = [
+const AVATAR = 'https://i.pravatar.cc/300'
+const ITEMS = [
   {
-    artist: 'Lady Gaga',
-    song: 'Bad Romance',
+    user: 'Joe Doe',
+    title: 'Pluto',
+    label: 'Manga',
   },
   {
-    artist: 'Eminem',
-    song: 'Mockingbird',
+    user: 'Lisa Lane',
+    title: 'Day & Night',
+    label: 'Dance',
   },
   {
-    artist: 'Bob Dylan',
-    song: 'Mr. Tambourine Man',
+    user: 'Dustin Lore',
+    title: 'World of light',
+    label: 'Music',
   },
+]
+
+const MODES: Array<{ mode: ThemeMode; icon: Icons }> = [
+  { mode: 'light', icon: 'sun' },
+  { mode: 'dark', icon: 'moon' },
 ]
 
 export const Home: NavigationFunctionComponent = () => {
@@ -29,7 +37,7 @@ export const Home: NavigationFunctionComponent = () => {
   const nextLanguage = i18n.locale === 'en' ? 'sv' : 'en'
   return (
     <Box flex>
-      <ScrollView contentInsetAdjustmentBehavior="always">
+      <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
         <Column padding-l>
           <Text mb={20}>
             {t('selectedLanguage')} <Text bold>{t('language')}</Text>
@@ -44,9 +52,9 @@ export const Home: NavigationFunctionComponent = () => {
             </Button>
           </Row>
           <Row>
-            {['light', 'dark'].map((mode) => (
+            {MODES.map(({ icon, mode }) => (
               <Button
-                iconRight="highlighter"
+                iconRight={icon}
                 mr={15}
                 key={mode}
                 onPress={() => {
@@ -58,24 +66,24 @@ export const Home: NavigationFunctionComponent = () => {
           </Row>
           <Box br={15} bg="primary" padding-l mt={30} shadow>
             <Text color="white" bold>
-              Balance
+              Activities
             </Text>
             <Text color="white" mt={0} text={35} bold>
-              $430,230
+              302,020
             </Text>
 
             <Row alignItems="flex-end" mt={20}>
-              {[10, 3, 2, 9, 13, 4, 3, 1, 2, 7, 3, 12, 3].map((earning, index) => (
+              {[10, 3, 2, 9, 13, 4, 3, 1, 2, 7, 3, 12, 3].map((day, index) => (
                 <Box key={index} mr={5} alignItems="center">
-                  <Box width={8} height={earning * 10} bg="white" br={15} />
+                  <Box width={8} height={day * 10} bg="white" br={15} mx={5} />
                   <Text color="white" mt={10}>
-                    ${earning}
+                    {day}
                   </Text>
                 </Box>
               ))}
             </Row>
           </Box>
-          {['My portofolio', 'Trending'].map((title) => (
+          {['You might like', 'Trending'].map((title) => (
             <Box mt={30} key={title}>
               <Text mb={10} bold>
                 {title}
@@ -84,24 +92,24 @@ export const Home: NavigationFunctionComponent = () => {
                 horizontal
                 style={{ marginHorizontal: -20 }}
                 contentContainerStyle={{ paddingHorizontal: 20 }}>
-                {PORTOFOLIO.map(({ artist, song }) => (
-                  <Box bg="screenBg10" padding-m br={15} key={song} mr={10}>
+                {ITEMS.map(({ user, title, label }) => (
+                  <Box bg="screenBg10" padding-m br={15} key={title} mr={10} width={150}>
                     <Row alignItems="center">
                       <Image
-                        source={{ uri: ARTIST }}
+                        source={{ uri: AVATAR }}
                         style={{ width: 40, height: 40, borderRadius: 20 }}
                       />
                       <Box ml={10}>
                         <Text textXS medium color="text30" mb={4}>
-                          {artist}
+                          {user}
                         </Text>
-                        <Text textS>{song}</Text>
+                        <Text textS>{title}</Text>
                       </Box>
                     </Row>
-                    <Row justifyContent="space-between" alignItems="flex-end" mt={5}>
-                      <Text textS>$139.23</Text>
+                    <Row justifyContent="space-between" alignItems="flex-end" mt={10}>
+                      <Text textS>{label}</Text>
                       <Text textS bold color="success">
-                        +23%
+                        Hot
                       </Text>
                     </Row>
                   </Box>

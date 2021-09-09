@@ -2,19 +2,20 @@ import React from 'react'
 import { ViewProps } from 'react-native'
 import { View } from 'react-native'
 import { useTheme } from './theme'
-import { getFlex, getMargin, getPadding, getShadow } from './style'
-import type { Flex, Margin, Padding } from './types'
+import { getFlex, getMargin, getPadding, getSafeInset, getShadow } from './style'
+import type { Flex, Margin, Padding, SafeInset } from './types'
 
 type BoxProps = ViewProps & {
   children?: React.ReactNode
   bg?: keyof Theme
   shadow?: boolean
   br?: number
-  height?: number
-  width?: number
+  height?: number | string
+  width?: number | string
 } & Padding &
   Margin &
-  Flex
+  Flex &
+  SafeInset
 
 export function Box({
   children,
@@ -25,7 +26,7 @@ export function Box({
   height,
   width,
   ...props
-}: BoxProps): React.ReactElement {
+}: BoxProps): React.ReactElement<BoxProps> {
   const theme = useTheme()
 
   return (
@@ -39,6 +40,7 @@ export function Box({
         ...getFlex(props),
         ...getPadding(props),
         ...getMargin(props),
+        ...getSafeInset(props),
         ...(typeof style === 'object' ? style : {}),
       }}
       {...props}>

@@ -3,7 +3,7 @@ import { getColor } from '@ui/theme'
 import { Screen, screens } from '@screens'
 import { Props } from './types'
 
-export const defaultOptions = (): Options => {
+export function defaultOptions(): Options {
   return {
     layout: {
       orientation: ['portrait'],
@@ -11,21 +11,22 @@ export const defaultOptions = (): Options => {
       backgroundColor: getColor('screenBg'),
     },
     bottomTabs: {
+      backgroundColor: getColor('screenBg'),
       tabsAttachMode: 'together',
       visible: false,
     },
-    // bottomTab: {
-    //   iconColor: getColor('screenBg'),
-    //   text: getColor('screenBg'),
-    //   selectedIconColor: getColor('screenBg'),
-    //   selectedTextColor: getColor('screenBg'),
-    // },
+    bottomTab: {
+      iconColor: getColor('icon'),
+      textColor: getColor('icon'),
+      selectedIconColor: getColor('primary'),
+      selectedTextColor: getColor('primary'),
+    },
     topBar: {
       background: {
         color: getColor('screenBg'),
       },
       backButton: {
-        color: getColor('iconDefault'),
+        color: getColor('icon'),
       },
       noBorder: true,
       elevation: 0,
@@ -40,6 +41,25 @@ export const defaultOptions = (): Options => {
       },
     },
   }
+}
+
+export function getRootAnimation(animate?: boolean): Options {
+  if (animate) {
+    return {
+      animations: {
+        setRoot: {
+          enabled: !!animate,
+          alpha: {
+            from: 1,
+            to: 0,
+            duration: 1000,
+          },
+        },
+      },
+    }
+  }
+
+  return {}
 }
 
 export function getUniqueId<P = Props>(name: Screen, props?: P): string {

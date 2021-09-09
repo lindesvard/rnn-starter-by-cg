@@ -55,7 +55,7 @@ export function TabBar({ componentId }: NavigationComponentProps): React.ReactEl
             <Icon
               name={screens[tab.name as Screen]?.bottomTab?.icon || 'home'}
               size={30}
-              color={selected === index ? theme.primary : theme.iconDefault}
+              color={selected === index ? theme.primary : theme.icon}
             />
           </TouchableHighlight>
         )

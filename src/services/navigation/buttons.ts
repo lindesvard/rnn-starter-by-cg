@@ -1,4 +1,4 @@
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/FontAwesome'
 import { ButtonsOptions } from './types'
 
 const ICON_SIZE = 25

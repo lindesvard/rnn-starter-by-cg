@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { NavigationComponentProps, NavigationFunctionComponent } from 'react-native-navigation'
 import { useServices } from '@services'
 import { stores, useStores } from '@stores'
@@ -10,18 +10,18 @@ type BaseStyle = ViewStyle | TextStyle | ImageStyle
 type NamedStyles<T> = { [P in keyof T]: BaseStyle }
 type IncomingStyles<T> = NamedStyles<T> | ((theme: Theme) => NamedStyles<T>)
 
-export { darken, lighten, getColor } from './colors'
+export { darken, lighten, getColor, isColorDark, isColorLight } from './colors'
 
 export const withThemeModes = (
   Component: NavigationFunctionComponent,
 ): NavigationFunctionComponent => {
   return observer((props: NavigationComponentProps): React.ReactElement => {
     const { ui } = useStores()
-    const { navigation } = useServices()
+    const { navigation, i18n } = useServices()
 
     useEffect(() => {
       navigation.updateDefaultOptions(props.componentId)
-    }, [ui.themeMode])
+    }, [ui.themeMode, i18n.locale])
 
     return <Component {...props} />
   })
@@ -70,5 +70,5 @@ export function useStyles<T extends NamedStyles<T>>(styles: IncomingStyles<T>): 
       }
     }
     return obj
-  }, [theme])
+  }, [theme, styles])
 }

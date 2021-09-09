@@ -12,9 +12,9 @@ import { Screen, screens, registeredScreens, componentLayouts } from '@screens'
 import { withServices } from '@services'
 import { withStores } from '@stores'
 
-import { BottomTabs, Component, Root, Stack } from './layout'
+import { BottomTabs, Component, Root, Stack, translateOptions } from './layout'
 import { getTheme, withThemeModes } from '@ui/theme'
-import { defaultOptions, getUniqueId, stripUniqueId } from './options'
+import { defaultOptions, getRootAnimation, getUniqueId, stripUniqueId } from './options'
 import { Hoc, Props } from './types'
 
 export class Nav implements IService {
@@ -24,11 +24,7 @@ export class Nav implements IService {
 
   public constants: NavigationConstants = Constants.getSync()
 
-  public tabs: Array<LayoutComponent> = [
-    componentLayouts.Home,
-    componentLayouts.Explore,
-    componentLayouts.Profile,
-  ]
+  public tabs: Array<LayoutComponent> = []
 
   public activeTab = 0
 
@@ -44,11 +40,21 @@ export class Nav implements IService {
 
   getScreen = <P = Props>(screen: Screen, props?: P): LayoutComponent => {
     const layout = componentLayouts[screen]
-    return { ...layout, id: getUniqueId(screen, props) }
+    return {
+      ...layout,
+      id: getUniqueId(screen, props),
+      options: translateOptions(screen, layout.options),
+    }
   }
 
-  start = async (): PVoid => {
-    await this.setTabs()
+  start = async ({ authorized, animate }: { animate?: boolean; authorized: boolean }): PVoid => {
+    if (authorized) {
+      await this.setTabs({ animate })
+    } else {
+      await Navigation.setRoot(
+        Root(Stack(Component(this.getScreen('SignIn')), getRootAnimation(animate))),
+      )
+    }
     await this.getConstants()
   }
 
@@ -115,9 +121,15 @@ export class Nav implements IService {
     }
   }
 
-  private async setTabs(): PVoid {
+  private async setTabs({ animate }: { animate?: boolean }): PVoid {
+    this.tabs = [componentLayouts.Home, componentLayouts.Explore, componentLayouts.Profile]
     await Navigation.setRoot(
-      Root(BottomTabs(this.tabs.map((layoutComponent) => Stack(Component(layoutComponent))))),
+      Root(
+        BottomTabs(
+          this.tabs.map((layoutComponent) => Stack(Component(layoutComponent))),
+          getRootAnimation(animate),
+        ),
+      ),
     )
   }
 

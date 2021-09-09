@@ -1,15 +1,10 @@
+## RNN Starter
+
+This is a **forked** repository from https://github.com/kanzitelli/rnn-starter
+
+I have done changes what I prefer.
+
 ## Getting Started
-
-#### Quick start with [cli-rn](https://github.com/kanzitelli/cli-rn)
-
-```bash
-> npm i -g cli-rn
-> cli-rn new AppName
-```
-
-If you encounter any problems with `cli-rn`, please open an issue.
-
-If you have any troubles running the app with `yarn ios` or `yarn android`, open XCode or Android Studio and run the project from there.
 
 #### Manual setup
 

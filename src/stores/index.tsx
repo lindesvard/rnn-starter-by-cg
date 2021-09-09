@@ -3,11 +3,11 @@ import { NavigationComponentProps, NavigationFunctionComponent } from 'react-nat
 
 import './_hydration'
 import { UI } from './ui'
-import { Test } from './test'
+import { User } from './user'
 
 export const stores = {
   ui: new UI(),
-  Test: new Test(),
+  user: new User(),
 }
 type ContextStores = typeof stores
 

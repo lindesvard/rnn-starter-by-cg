@@ -1,35 +1,32 @@
 import { getLocales } from 'react-native-localize'
 import i18n from 'i18n-js'
 import { sv, en } from './translations'
-import { Nav } from '@services/navigation'
-import { Storage } from '@services/storage'
+import { makeAutoObservable } from 'mobx'
+import { hydrateStore, makePersistable } from 'mobx-persist-store'
 
 export type Locale = 'en' | 'sv'
 
-export const t = i18n.translate
+export const t = i18n.translate.bind(i18n)
 
 export class I18n implements IService {
-  private key = '@app/locale'
-
   private inited = false
-
-  private navigation: Nav | null = null
-
-  private storage: Storage | null = null
 
   public translate = i18n.t
 
-  public locale: Locale = 'en'
+  public locale: Locale | null = null
 
-  constructor({ navigation, storage }: { navigation: Nav; storage: Storage }) {
-    this.navigation = navigation
-    this.storage = storage
+  constructor() {
+    makeAutoObservable(this)
+    makePersistable(this, {
+      name: 'I18n',
+      properties: ['locale'],
+    })
   }
 
   init = async (): PVoid => {
     if (!this.inited) {
+      await this.hydrate()
       await this.setup()
-
       this.inited = true
     }
   }
@@ -37,9 +34,11 @@ export class I18n implements IService {
   private setup = async () => {
     const locales = getLocales()
     if (locales.length > 0) {
-      const savedLocale: Locale | null = this.storage?.getString(this.key) as Locale
       const deviceLocale: Locale = locales[0].languageCode as Locale
-      this.locale = savedLocale || deviceLocale
+      if (this.locale === null) {
+        this.locale = deviceLocale
+      }
+
       i18n.translations = { en, sv }
       i18n.locale = this.locale
       i18n.fallbacks = true
@@ -47,13 +46,11 @@ export class I18n implements IService {
   }
 
   public async changeLocale(locale: Locale): PVoid {
-    // Set current locale
+    i18n.locale = locale
     this.locale = locale
-    // Save to storage
-    this.storage?.set(this.key, this.locale)
-    // Set i18n library
-    i18n.locale = this.locale
-    // Restart the app
-    await this.navigation?.start()
+  }
+
+  private async hydrate(): PVoid {
+    await hydrateStore(this)
   }
 }
