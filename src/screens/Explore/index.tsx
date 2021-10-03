@@ -7,7 +7,7 @@ import { Text } from '@ui/Text'
 export const Explore: NavigationFunctionComponent = ({ componentId }) => {
   return (
     <Box flex>
-      <ScrollView contentInsetAdjustmentBehavior="always" contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Box padding-l justifyContent="center" alignItems="center" flex>
           <Text textXL bold>
             Explore View

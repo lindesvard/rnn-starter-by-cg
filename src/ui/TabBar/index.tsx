@@ -31,8 +31,8 @@ export function TabBar({ componentId }: NavigationComponentProps): React.ReactEl
       height={tabBarHeight}
       pb={bottom}
       pt={5}
+      mt={-20}
       style={{
-        marginTop: -20,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
       }}>

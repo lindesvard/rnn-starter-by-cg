@@ -7,6 +7,7 @@ import {
 } from 'react-native-navigation'
 import { gestureHandlerRootHOC as withGestureHandler } from 'react-native-gesture-handler'
 import merge from 'lodash/merge'
+import pipe from 'lodash/flowRight'
 
 import { Screen, screens, registeredScreens, componentLayouts } from '@screens'
 import { withServices } from '@services'
@@ -148,15 +149,13 @@ export class Nav implements IService {
       Navigation.registerComponent(
         screenInfo.name,
         () =>
-          withGestureHandler(
-            withStores(
-              withServices(
-                withThemeModes(
-                  hocs ? compose(...hocs)(screenInfo.component) : screenInfo.component,
-                ),
-              ),
-            ),
-          ),
+          pipe(
+            withGestureHandler,
+            withStores,
+            withServices,
+            withThemeModes,
+            ...(hocs || []),
+          )(screenInfo.component),
         () => screenInfo.component,
       )
     })
@@ -182,7 +181,7 @@ export class Nav implements IService {
     }
   }
 
-  private async getConstants() {
+  private getConstants() {
     this.constants = Constants.getSync()
     return this.constants
   }

@@ -13,7 +13,7 @@ export const Profile: NavigationFunctionComponent = () => {
 
   return (
     <Box flex>
-      <ScrollView contentInsetAdjustmentBehavior="always" contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <Box padding-l justifyContent="center" alignItems="center" flex>
           <Text textXL bold>
             {t('hi')} {user.name}
